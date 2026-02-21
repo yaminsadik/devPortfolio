@@ -1,0 +1,51 @@
+---
+title: "ML Pipeline Platform"
+slug: "ml-pipeline-platform"
+date: "2025-11-02"
+summary: "An end-to-end machine learning platform that automates model training, evaluation, and deployment — reducing time-to-production from weeks to hours."
+tags: ["Machine Learning", "Platform Engineering", "DevOps"]
+stack: ["Python", "FastAPI", "Kubernetes", "Apache Airflow", "MLflow", "React"]
+role: "Tech Lead & Architect"
+outcomes:
+  - "Cut model deployment time from 2 weeks to under 4 hours"
+  - "Standardized ML workflows across 5 data science teams"
+  - "Reduced infrastructure costs by 35% through dynamic GPU scheduling"
+  - "Processed 2TB+ of training data daily with zero manual intervention"
+repoUrl: "https://github.com/syam/ml-pipeline-platform"
+liveUrl: "https://mlplatform-demo.syam.dev"
+coverImage: "/images/projects/ml-pipeline.svg"
+---
+
+## Overview
+
+Data science teams were spending more time on infrastructure and deployment than on actual modeling. Each team had its own ad-hoc process for training, versioning, and serving models — leading to inconsistencies, wasted compute, and slow iteration cycles. This platform standardized the entire ML lifecycle.
+
+## Architecture
+
+The platform consists of four core services:
+
+**Pipeline Orchestrator** — Apache Airflow DAGs define training pipelines as code. Data scientists author pipeline configs in YAML, specifying data sources, preprocessing steps, model architectures, and evaluation criteria. The orchestrator handles scheduling, retries, and resource allocation.
+
+**Experiment Tracker** — MLflow tracks every training run with full reproducibility: hyperparameters, metrics, artifacts, and environment snapshots. A custom React dashboard extends MLflow's UI with team-level views and comparison tools.
+
+**Model Registry** — Trained models are versioned and stored with metadata including training data lineage, performance benchmarks, and approval status. Promotion from staging to production requires automated validation gates.
+
+**Serving Infrastructure** — Models are packaged as Docker containers and deployed to Kubernetes with auto-scaling based on request volume. A lightweight FastAPI gateway handles routing, A/B testing, and graceful rollbacks.
+
+<Callout type="tip">
+By decoupling pipeline definition from execution, data scientists can iterate on model architectures without touching infrastructure code. The platform handles GPU scheduling, data sharding, and distributed training transparently.
+</Callout>
+
+## Key Challenges
+
+### Dynamic GPU Scheduling
+
+GPU resources are expensive and finite. We built a custom Kubernetes scheduler extension that bins packs training jobs based on GPU memory requirements and estimated duration. Jobs that can use spot instances are automatically scheduled on preemptible nodes, with checkpointing enabled for automatic recovery.
+
+### Data Lineage Tracking
+
+Reproducibility requires knowing exactly which data was used for each training run. We implemented a lightweight lineage tracker that records dataset versions, preprocessing transforms, and sampling parameters. This metadata travels with the model through the registry and into production.
+
+## Results
+
+The platform eliminated the "last mile" problem of ML deployment. What previously took two weeks of back-and-forth between data scientists and DevOps now happens in under four hours through a self-service workflow. Five teams standardized on the platform within three months, and infrastructure costs dropped 35% through smarter GPU utilization.

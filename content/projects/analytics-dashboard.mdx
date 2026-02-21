@@ -1,0 +1,53 @@
+---
+title: "Real-Time Analytics Dashboard"
+slug: "analytics-dashboard"
+date: "2025-08-15"
+summary: "A high-performance analytics dashboard that processes millions of events daily and delivers real-time insights through interactive visualizations."
+tags: ["Data Visualization", "Real-Time", "Full-Stack"]
+stack: ["Next.js", "TypeScript", "D3.js", "PostgreSQL", "Redis", "WebSockets"]
+role: "Lead Developer"
+outcomes:
+  - "Reduced report generation time from 45 minutes to under 30 seconds"
+  - "Scaled to handle 12M+ daily events with sub-second query latency"
+  - "Adopted by 3 enterprise clients within the first quarter of launch"
+  - "Decreased customer churn by 18% through actionable data insights"
+repoUrl: "https://github.com/syam/analytics-dashboard"
+liveUrl: "https://analytics-demo.syam.dev"
+coverImage: "/images/projects/analytics-dashboard.svg"
+---
+
+## Overview
+
+The analytics dashboard was built to replace a legacy reporting system that required manual CSV exports and hours of spreadsheet manipulation. The goal was to provide stakeholders with real-time, self-service access to key business metrics.
+
+## Technical Architecture
+
+The system follows an event-driven architecture with three main layers:
+
+**Ingestion Layer** — A lightweight Node.js service receives events via HTTP and WebSocket connections, validates payloads against JSON schemas, and publishes them to a Redis Streams topic.
+
+**Processing Layer** — A set of worker processes consume from Redis Streams, perform aggregations and windowed computations, and write materialized views to PostgreSQL. Time-series data is partitioned by day using TimescaleDB for efficient range queries.
+
+**Presentation Layer** — The Next.js frontend fetches pre-aggregated data via REST endpoints and subscribes to real-time updates through WebSocket channels. D3.js powers the interactive charts with smooth transitions and drill-down capabilities.
+
+<Callout type="info">
+The combination of pre-aggregated materialized views and real-time WebSocket updates allows the dashboard to show fresh data within 2 seconds of event ingestion while keeping query times under 100ms.
+</Callout>
+
+## Key Challenges
+
+### Handling Bursty Traffic
+
+During peak hours, event volume could spike 10x above baseline. We implemented adaptive batching in the ingestion layer — events are buffered for up to 50ms or 1000 events (whichever comes first) before being flushed to Redis. This smoothed out write amplification without adding perceptible latency.
+
+### Query Performance at Scale
+
+With billions of rows accumulating over months, naive queries became untenable. We solved this with:
+
+- **Continuous aggregation** — TimescaleDB continuous aggregates pre-compute hourly and daily rollups
+- **Chunk exclusion** — Partitioning by time allows the query planner to skip irrelevant partitions
+- **Connection pooling** — PgBouncer in transaction mode keeps connection counts predictable
+
+## Results
+
+The dashboard shipped on schedule and immediately improved how the data team works. Report generation went from a 45-minute manual process to a single click. Three enterprise clients adopted the platform in Q1, and customer churn dropped 18% as teams gained visibility into usage patterns.
