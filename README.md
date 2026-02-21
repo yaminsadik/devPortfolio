@@ -1,36 +1,179 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dev Portfolio
+
+A modern, full-featured developer portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features MDX-based project case studies, dark mode, animations, and full SEO optimization.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, React 19 Server Components)
+- **Language:** TypeScript 5
+- **Styling:** Tailwind CSS 4, shadcn/ui, Radix UI
+- **Animations:** Framer Motion
+- **Content:** MDX via `next-mdx-remote`, gray-matter, remark-gfm
+- **Syntax Highlighting:** rehype-pretty-code + Shiki
+- **Icons:** Lucide React
+
+## Project Structure
+
+```
+devPortfolio/
+├── content/
+│   └── projects/           # MDX project case studies
+├── public/
+│   └── images/
+│       ├── profile.svg
+│       └── projects/       # Project cover images
+└── src/
+    ├── app/                # Next.js App Router pages
+    │   ├── page.tsx        # Home
+    │   ├── about/          # About page
+    │   ├── contact/        # Contact page
+    │   └── projects/       # Projects listing + dynamic [slug] detail pages
+    ├── components/
+    │   ├── ui/             # shadcn/ui primitives (Button, Card, Badge, Separator)
+    │   └── mdx/            # MDX rendering components (Callout, Image)
+    ├── config/
+    │   ├── site.ts         # Site metadata, social links, featured project slugs
+    │   └── content.ts      # All page text content
+    └── lib/
+        ├── projects.ts     # Project file fetching and parsing
+        └── utils.ts        # Utility helpers (cn, etc.)
+```
+
+## Pages
+
+| Route              | Description                                        |
+| ------------------ | -------------------------------------------------- |
+| `/`                | Hero section, featured projects, services overview |
+| `/projects`        | Full project grid                                  |
+| `/projects/[slug]` | Individual project detail with MDX content         |
+| `/about`           | Experience timeline, skills, education, research   |
+| `/contact`         | Contact links and social media                     |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+```bash
+git clone <repo-url>
+cd devPortfolio
+npm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+### Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Site Metadata
 
-## Deploy on Vercel
+Edit `src/config/site.ts` to update your name, URL, email, and social links:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+export const siteConfig = {
+  name: "Your Name",
+  url: "https://yoursite.dev",
+  email: "hello@yoursite.dev",
+  links: {
+    github: "https://github.com/yourhandle",
+    linkedin: "https://linkedin.com/in/yourhandle",
+    twitter: "https://twitter.com/yourhandle",
+  },
+  featuredProjects: ["project-slug-1", "project-slug-2"],
+};
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Page Content
+
+All text content is centralized in `src/config/content.ts`. Edit this file to update hero copy, about page descriptions, service cards, experience entries, education, and skills without touching component files.
+
+## Adding a Project
+
+1. Create a new MDX file in `content/projects/`:
+
+```
+content/projects/my-project.mdx
+```
+
+2. Add YAML frontmatter at the top:
+
+```mdx
+---
+title: "My Project"
+date: "2025-01-01"
+summary: "A short description of the project."
+tags: ["Next.js", "TypeScript", "PostgreSQL"]
+role: "Lead Developer"
+coverImage: "/images/projects/my-project.svg"
+featured: false
+githubUrl: "https://github.com/yourhandle/my-project"
+liveUrl: "https://my-project.dev"
+outcomes:
+  - "Reduced load time by 40%"
+  - "Handled 10M+ requests per day"
+---
+
+## Overview
+
+Write your project content here using Markdown...
+```
+
+3. Add a cover image to `public/images/projects/`.
+
+4. To feature the project on the home page, add its slug to `featuredProjects` in `src/config/site.ts`.
+
+### MDX Components
+
+Inside project MDX files you can use:
+
+- **`<Callout>`** — Highlighted info box
+
+```mdx
+<Callout>This is an important note about the project architecture.</Callout>
+```
+
+## Features
+
+- **Dark Mode** — System preference detection with localStorage persistence
+- **Responsive** — Mobile-first layout with Tailwind breakpoints
+- **Animations** — Framer Motion with `prefers-reduced-motion` support
+- **SEO** — Metadata API, JSON-LD structured data, sitemap, robots.txt
+- **Image Optimization** — Next.js Image with WebP/AVIF formats
+- **Static Generation** — Project pages are statically generated at build time
+- **Syntax Highlighting** — Code blocks in MDX with Shiki themes
+
+## Deployment
+
+### Vercel (Recommended)
+
+Push to GitHub and deploy via [Vercel](https://vercel.com). No additional configuration required.
+
+### Other Platforms
+
+```bash
+npm run build
+```
+
+The output in `.next/` can be served with `npm start` or exported as static files. Refer to the [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for platform-specific instructions.
