@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, easeOut, easeInOut } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: "easeOut" },
+    transition: { duration: 0.55, ease: easeOut },
   },
 };
 
@@ -39,7 +39,7 @@ export function Hero() {
           animate={
             reducedMotion ? {} : { x: [-15, 15, -15], y: [-20, 20, -20] }
           }
-          transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 40, repeat: Infinity, ease: easeInOut }}
         />
 
         {/* Hex grid — extremely low contrast, visible only toward avatar side */}
@@ -156,7 +156,7 @@ export function Hero() {
           className="shrink-0"
           initial={{ opacity: 0, scale: 0.88 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.65, ease: "easeOut", delay: 0.25 }}
+          transition={{ duration: 0.65, ease: easeOut, delay: 0.25 }}
         >
           <HeroAvatar
             imageSrc="/images/profile.svg"
