@@ -14,6 +14,7 @@ export interface Project {
   role: string;
   outcomes: string[];
   repoUrl?: string;
+  privateRepo?: boolean;
   liveUrl?: string;
   coverImage: string;
   ogImage?: string;

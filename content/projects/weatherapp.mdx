@@ -1,0 +1,63 @@
+---
+title: "WeatherApp"
+slug: "weatherapp"
+date: "2026-02-21"
+summary: "Production-quality weather dashboard with forecasts, air quality, and interactive map layers for any location worldwide."
+tags: ["Frontend", "Maps", "Data Visualization"]
+stack:
+  [
+    "React",
+    "TypeScript",
+    "Vite",
+    "Tailwind CSS",
+    "React Query",
+    "Zod",
+    "Leaflet",
+    "MapTiler",
+    "OpenWeatherMap",
+  ]
+role: "Lead Developer"
+outcomes:
+  - "Integrated OpenWeatherMap with caching and request synchronization via TanStack React Query"
+  - "Added interactive maps with weather layers using Leaflet + MapTiler"
+  - "Improved stability with Zod validation for API response parsing"
+  - "Shipped a responsive UI with skeleton loaders, Suspense, and light/dark theme"
+repoUrl: "https://github.com/yaminsadik/weatherApp"
+liveUrl: ""
+coverImage: "/images/projects/weatherapp.png"
+featured: true
+---
+
+## Overview
+
+WeatherApp is a feature-rich weather dashboard that works for any location on Earth. It combines forecasts, air quality, and interactive map layers in a single interface, with a focus on clean UX and modern frontend best practices.
+
+## What It Does
+
+- Current conditions: temperature, feels-like, humidity, wind.
+- Hourly forecast (48-hour) and extended daily forecast.
+- Air pollution and air quality views.
+- Interactive weather maps with multiple layers (clouds, precipitation, and more).
+- Location search and light/dark theme.
+
+## Technical Architecture
+
+OpenWeatherMap powers the weather, geocoding, and air pollution data.
+
+TanStack React Query handles server state (caching, deduping, synchronization) so the UI stays responsive even when switching locations quickly. Zod schemas validate API responses at runtime so unexpected payloads do not crash the UI.
+
+Maps are built with Leaflet and MapTiler layers. The map view supports interactive exploration instead of being a static embed.
+
+## Key Challenges
+
+### Keeping the UI smooth during frequent location changes
+
+The app uses skeleton loading states and React Query caching so the dashboard does not feel like a full refresh every time a user searches a new city.
+
+### Defensive data handling
+
+Zod validation was added to catch malformed or missing API fields before they reach components.
+
+## Results
+
+WeatherApp feels like a polished dashboard instead of a basic API demo, combining maps, air quality, forecasts, and fast search in a single responsive UI.

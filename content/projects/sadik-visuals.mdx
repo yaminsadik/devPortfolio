@@ -1,0 +1,50 @@
+---
+title: "Sadik Visuals"
+slug: "sadik-visuals"
+date: "2026-01-17"
+summary: "Content-driven photography portfolio with a full-screen hero slideshow, filterable galleries, and a keyboard-navigable lightbox."
+tags: ["Frontend", "UI/UX", "Content-Driven"]
+stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "React Router"]
+role: "Lead Developer"
+outcomes:
+  - "Implemented full-screen hero slideshow with Ken Burns effect and dot navigation"
+  - "Built filterable galleries with lazy-loaded grids and bento-style featured layout"
+  - "Shipped a full-screen lightbox modal with keyboard navigation (←, →, Esc)"
+  - "Centralized all site content in a single config file to avoid JSX edits for updates"
+repoUrl: "https://github.com/yaminsadik/sadik-visuals"
+liveUrl: "https://sadikvisuals.vercel.app/"
+coverImage: "/images/projects/sadik-visuals.png"
+featured: true
+---
+
+## Overview
+
+Sadik Visuals is a clean, content-driven photography portfolio built to make updates simple. All text, image paths, and site metadata live in a single TypeScript config file, so adding new work does not require editing components.
+
+## What It Does
+
+- Full-screen hero slideshow with an auto-rotating background and Ken Burns zoom.
+- Gallery categories with filtering and lazy-loaded image grids.
+- Bento-style featured section where landscape images can span two columns.
+- Full-screen lightbox with captions, previous/next navigation, and keyboard controls.
+- Smart navbar that transitions from transparent to frosted-glass styling on scroll.
+
+## Technical Architecture
+
+The site is a static Vite build with React Router for smooth client-side navigation.
+
+Content is managed in `src/data/siteContent.ts`, which acts as the single source of truth for metadata, hero content, gallery sections, the about section, and contact links. Components read from that configuration so the structure stays stable even when content changes.
+
+## Key Challenges
+
+### Keeping the browsing experience premium without over-complicating the codebase
+
+The UI is built from small components (hero gallery, image grid, modal) with clean props and a content-first configuration approach.
+
+### Making updates easy
+
+The content system was designed so new images and copy can be added by editing one file and dropping assets into `public/images/`.
+
+## Results
+
+Sadik Visuals delivers a high-end browsing experience for photography while staying easy to maintain and update.

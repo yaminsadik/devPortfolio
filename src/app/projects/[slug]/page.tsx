@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Lock } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
@@ -129,6 +129,16 @@ export default async function ProjectPage({ params }: PageProps) {
                   >
                     <Github className="mr-2 h-4 w-4" />
                     Source
+                  </a>
+                </Button>
+              )}
+              {meta.privateRepo && (
+                <Button asChild variant="outline" size="sm">
+                  <a
+                    href={`mailto:${siteConfig.email}?subject=Viewing source for ${meta.title}`}
+                  >
+                    <Lock className="mr-2 h-4 w-4" />
+                    Private Repo — Contact to View Source
                   </a>
                 </Button>
               )}

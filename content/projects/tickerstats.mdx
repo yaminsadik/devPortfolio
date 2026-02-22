@@ -1,0 +1,70 @@
+---
+title: "TickerStats"
+slug: "tickerstats"
+date: "2026-02-21"
+summary: "AI-powered equity research SaaS that compares tickers, generates pitch decks, runs DCF valuation, and exports to PPTX/PDF/XLSX."
+tags: ["SaaS", "AI", "FinTech", "Full-Stack"]
+stack:
+  [
+    "React",
+    "TypeScript",
+    "FastAPI",
+    "PostgreSQL",
+    "Auth0",
+    "Stripe",
+    "OpenAI",
+    "Gemini",
+    "Claude",
+  ]
+role: "Founder / Full-Stack Developer"
+outcomes:
+  - "Built a 30-ticker relative valuation engine with caching and concurrent data fetch"
+  - "Shipped schema-validated LLM deck generation with modular, testable section pipelines"
+  - "Implemented tiered billing with Auth0 JWT claims + Stripe and tracked usage quotas in Postgres"
+  - "Delivered one-click exports to CSV, XLSX, PDF, and PPTX from server-side generation"
+privateRepo: true
+liveUrl: "https://www.tickerstats.app/"
+coverImage: "/images/projects/tickerstats.png"
+featured: true
+---
+
+## Overview
+
+TickerStats is a full-stack SaaS platform for student investment clubs and retail analysts who want a faster way to do equity research without Bloomberg. The product focuses on two things: comparing companies quickly, and turning research into a real deliverable like a pitch deck or exportable model.
+
+## What It Does
+
+- Relative valuation and performance comparisons for up to 30 tickers at a time (fundamentals plus return and risk metrics).
+- AI pitch deck generator that outputs structured sections like company overview, thesis, risks, SWOT, and valuation.
+- Deterministic DCF model with sensitivity analysis to produce a fair value target price.
+- Export pipeline for CSV, Excel, PDF, and PowerPoint.
+
+## Technical Architecture
+
+The system is split into a React + TypeScript client and a FastAPI backend.
+
+Data is pulled through yfinance and shaped into consistent metric objects for the UI. For large comparisons, requests are parallelized and cached using an in-memory TTL cache to avoid repeated fetches.
+
+The deck generator uses a modular "section spec" design. Each section has its own prompt builder, JSON schema, and post-processor. LLM outputs are schema-validated (Pydantic v2 structured outputs) before they are stored or exported.
+
+Auth and billing are enforced via Auth0 (JWT claims) and Stripe subscription tiers. Usage quotas are tracked per user in PostgreSQL.
+
+<Callout type="info">
+  The key engineering goal was reliability: schema-validated LLM outputs and
+  deterministic post-processing so generated decks do not break when models
+  respond unpredictably.
+</Callout>
+
+## Key Challenges
+
+### Making LLM outputs safe enough to export
+
+Deck sections are generated as structured JSON and validated end-to-end. If a section fails validation, the system can retry or fall back without corrupting saved work.
+
+### Keeping 30-ticker comparisons fast
+
+yfinance calls were parallelized and cached so repeated comparisons do not re-hit the same external data on every request.
+
+## Results
+
+TickerStats is designed around a real workflow: research faster, generate a deck, and export the output for meetings and presentations. The platform combines data, modeling, and deliverables in one place instead of spreading the workflow across multiple tools.

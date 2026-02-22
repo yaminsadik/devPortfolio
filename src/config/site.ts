@@ -13,7 +13,7 @@ export const siteConfig = {
     twitter: "https://twitter.com/syam",
   },
   resumeUrl: "/resume.pdf",
-  featuredProjectSlugs: ["analytics-dashboard", "ml-pipeline-platform"],
+  featuredProjectSlugs: ["analytics-dashboard", "ml-pipeline-platform", "weatherapp", "sadik-visuals"],
 } as const;
 
 export type SiteConfig = typeof siteConfig;
