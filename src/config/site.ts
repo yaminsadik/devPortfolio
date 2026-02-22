@@ -4,7 +4,7 @@ export const siteConfig = {
   title: "Sadik Yamin | Software Developer",
   description:
     "Software developer building data-driven products and turning complex systems into elegant user experiences.",
-  url: "https://www.sadikyamin.me/",
+  url: "https://www.sadikyamin.me",
   location: "San Francisco, CA",
   email: "hello@syam.dev",
   social: {
