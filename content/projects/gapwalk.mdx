@@ -1,0 +1,71 @@
+---
+title: "GapWalk"
+slug: "gapwalk"
+date: "2026-02-21"
+summary: "Schedule-aware micro-walking app that finds free gaps and nudges users to take short walks, with local-first tracking and optional calendar sync."
+tags: ["Mobile", "Health", "Productivity", "Local-First"]
+stack:
+  [
+    "Expo",
+    "React Native",
+    "TypeScript",
+    "Zustand",
+    "expo-sqlite",
+    "expo-notifications",
+    "expo-location",
+    "expo-sensors",
+    "date-fns",
+  ]
+role: "Lead Developer"
+outcomes:
+  - "Built a gap detection engine that generates walking plans from busy-time schedules and user preferences"
+  - "Implemented local notification scheduling with quiet hours, buffers, and configurable nudge timing"
+  - "Shipped an on-device walk tracker with GPS route, step counting, distance, time, pause/resume, and idle detection"
+  - "Delivered a local-first data layer using SQLite with streaks, weekly stats, and upcoming opportunities"
+repoUrl: "https://github.com/GutsJr75/GapWalk_the_microwalk_project"
+liveUrl: ""
+coverImage: "/images/projects/gapwalk.png"
+coverImageFit: "contain"
+---
+
+## Overview
+
+GapWalk turns short gaps in a busy schedule into quick, healthy walks. The app analyzes a user's schedule, finds free windows, and nudges them at the right time. No account is required and the core experience is local-first, so data stays on the device.
+
+## What It Does
+
+- Import a schedule via `.ics`, enter it manually, or optionally connect Google Calendar.
+- Generate walking opportunities from free gaps using preference rules like buffer minutes, minimum walk length, quiet hours, and preferred walking periods.
+- Schedule local notifications for the best windows, with configurable timing (at start or 5 or 10 minutes before) and a max nudges per day cap.
+- Track walks with GPS route mapping (with graceful fallback), real-time step counting (pedometer with GPS fallback), distance and time tracking, pause and resume, and idle detection.
+- Show progress with daily status, streak tracking, weekly stats, and upcoming walking opportunities.
+
+## Technical Architecture
+
+GapWalk is built with Expo and React Native.
+
+The scheduling logic is implemented as a dedicated gap engine that converts busy blocks into free windows and then filters them through user preferences. Notifications are scheduled locally using expo-notifications, and the app rebuilds plans automatically when preferences or schedules change.
+
+The app is local-first by default using expo-sqlite for on-device persistence. State is managed with Zustand, and time logic uses date-fns utilities for consistency and edge-case handling.
+
+There is an optional backend folder (NestJS) for future sync or enhancements, but the app works offline without it.
+
+<Callout type="info">
+  The core constraint was respecting user intent: quiet hours, buffers, minimum
+  walk length, preferred windows, and step goals all shape what gets scheduled
+  and when.
+</Callout>
+
+## Key Challenges
+
+### Reliable notifications without being annoying
+
+GapWalk schedules nudges only within valid gaps and enforces user-defined limits like quiet hours and max notifications per day. Plans are rebuilt automatically so reminders stay correct when the schedule changes.
+
+### Accurate tracking across different devices
+
+Step counting uses the hardware pedometer when available and falls back to GPS-based estimation if the device does not support steps. Map rendering also degrades gracefully if a Google Maps key is not provided.
+
+## Results
+
+GapWalk delivers an end-to-end micro-walking flow: schedule setup, plan generation, nudges, walk tracking, and progress analytics, all with a local-first approach and offline support.

@@ -20,7 +20,7 @@ devPortfolio/
 │   └── projects/           # MDX project case studies
 ├── public/
 │   └── images/
-│       ├── profile.svg
+│       ├── profile.png
 │       └── projects/       # Project cover images
 └── src/
     ├── app/                # Next.js App Router pages

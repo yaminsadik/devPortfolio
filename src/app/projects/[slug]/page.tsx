@@ -157,12 +157,12 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
           </header>
 
-          <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-lg border border-border/60 bg-muted sm:mt-10">
+          <div className={`relative mt-8 overflow-hidden rounded-lg border border-border/60 bg-muted sm:mt-10 ${meta.coverImageFit === "contain" ? "aspect-[3/4]" : "aspect-[16/9]"}`}>
             <Image
               src={meta.coverImage}
               alt={meta.title}
               fill
-              className="object-cover"
+              className={meta.coverImageFit === "contain" ? "object-contain" : "object-cover"}
               priority
               sizes="(max-width: 768px) 100vw, 768px"
             />

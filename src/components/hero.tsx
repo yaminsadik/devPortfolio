@@ -159,7 +159,7 @@ export function Hero() {
           transition={{ duration: 0.65, ease: easeOut, delay: 0.25 }}
         >
           <HeroAvatar
-            imageSrc="/images/profile.svg"
+            imageSrc="/images/profile.png"
             initials="SY"
             alt={siteConfig.fullName}
             size="lg"

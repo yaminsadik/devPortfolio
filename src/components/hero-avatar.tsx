@@ -7,6 +7,7 @@ interface HeroAvatarProps {
   size?: "md" | "lg";
   alt: string;
   accentClass?: string;
+  imageFit?: "cover" | "contain";
 }
 
 const sizes = {
@@ -20,6 +21,7 @@ export function HeroAvatar({
   size = "lg",
   alt,
   accentClass,
+  imageFit = "cover",
 }: HeroAvatarProps) {
   const sizeClass = sizes[size];
 
@@ -72,7 +74,7 @@ export function HeroAvatar({
             src={imageSrc}
             alt={alt}
             fill
-            className="object-cover"
+            className={imageFit === "contain" ? "object-contain" : "object-cover object-top"}
             priority
             sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, (max-width: 1024px) 208px, 224px"
           />

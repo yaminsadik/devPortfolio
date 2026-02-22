@@ -17,6 +17,7 @@ export interface Project {
   privateRepo?: boolean;
   liveUrl?: string;
   coverImage: string;
+  coverImageFit?: "cover" | "contain";
   ogImage?: string;
 }
 
