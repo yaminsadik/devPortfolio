@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Syam",
   fullName: "Sadik Yamin",
-  title: "Syam | Software Developer",
+  title: "Sadik Yamin | Software Developer",
   description:
     "Software developer building data-driven products and turning complex systems into elegant user experiences.",
   url: "https://www.sadikyamin.me/",
