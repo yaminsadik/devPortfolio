@@ -89,21 +89,23 @@ npm run lint
 
 ### Site Metadata
 
-Edit `src/config/site.ts` to update your name, URL, email, and social links:
+Edit `src/config/site.ts` to update your name, URL, email, social links, and which projects appear on the homepage:
 
 ```ts
 export const siteConfig = {
   name: "Your Name",
   url: "https://yoursite.dev",
   email: "hello@yoursite.dev",
-  links: {
+  social: {
     github: "https://github.com/yourhandle",
     linkedin: "https://linkedin.com/in/yourhandle",
     twitter: "https://twitter.com/yourhandle",
   },
-  featuredProjects: ["project-slug-1", "project-slug-2"],
+  featuredProjectSlugs: ["project-slug-1", "project-slug-2"],
 };
 ```
+
+> **Note:** `site.ts` controls SEO meta tags and social sharing previews. It is **not** the visible homepage text. To change visible page copy (hero headline, about bio, etc.), edit `src/config/content.ts`.
 
 ### Page Content
 
@@ -122,13 +124,16 @@ content/projects/my-project.mdx
 ```mdx
 ---
 title: "My Project"
+slug: "my-project"
 date: "2025-01-01"
 summary: "A short description of the project."
 tags: ["Next.js", "TypeScript", "PostgreSQL"]
+stack: ["React", "TypeScript", "FastAPI", "PostgreSQL"]
 role: "Lead Developer"
-coverImage: "/images/projects/my-project.svg"
-featured: false
-githubUrl: "https://github.com/yourhandle/my-project"
+coverImage: "/images/projects/my-project.png"
+coverImageFit: "cover"        # "cover" (default) or "contain" for wide/tall images
+repoUrl: "https://github.com/yourhandle/my-project"
+# privateRepo: true           # use instead of repoUrl for private repositories
 liveUrl: "https://my-project.dev"
 outcomes:
   - "Reduced load time by 40%"
@@ -140,9 +145,27 @@ outcomes:
 Write your project content here using Markdown...
 ```
 
+**Frontmatter fields:**
+
+| Field | Required | Description |
+|---|---|---|
+| `title` | Yes | Project display name |
+| `slug` | Yes | URL path (`/projects/slug`) |
+| `date` | Yes | ISO date string |
+| `summary` | Yes | Short description shown in cards |
+| `tags` | Yes | Category badges |
+| `stack` | Yes | Technology list |
+| `role` | Yes | Your role on the project |
+| `outcomes` | Yes | Bullet-point results |
+| `coverImage` | Yes | Path under `public/` |
+| `coverImageFit` | No | `"cover"` (default) or `"contain"` |
+| `repoUrl` | No | Public GitHub/repo URL |
+| `privateRepo` | No | Set `true` to show "Contact to View Source" instead of a repo link |
+| `liveUrl` | No | Live demo URL |
+
 3. Add a cover image to `public/images/projects/`.
 
-4. To feature the project on the home page, add its slug to `featuredProjects` in `src/config/site.ts`.
+4. To feature the project on the home page, add its slug to `featuredProjectSlugs` in `src/config/site.ts`.
 
 ### MDX Components
 

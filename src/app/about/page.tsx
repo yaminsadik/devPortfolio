@@ -8,12 +8,16 @@ import { contentConfig } from "@/config/content";
 
 const { about } = contentConfig;
 
+const introText = Array.isArray(about.intro)
+  ? about.intro.join(" ")
+  : about.intro;
+
 export const metadata: Metadata = {
   title: `About | ${siteConfig.name}`,
-  description: about.intro.slice(0, 160),
+  description: introText.slice(0, 160),
   openGraph: {
     title: `About | ${siteConfig.name}`,
-    description: about.intro.slice(0, 160),
+    description: introText.slice(0, 160),
     url: `${siteConfig.url}/about`,
   },
 };
@@ -53,9 +57,22 @@ export default function AboutPage() {
           {about.title}
         </h1>
 
-        <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {about.intro}
-        </p>
+        <div className="mt-6 space-y-4">
+          {Array.isArray(about.intro) ? (
+            about.intro.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-base leading-relaxed text-muted-foreground sm:text-lg"
+              >
+                {paragraph}
+              </p>
+            ))
+          ) : (
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {about.intro}
+            </p>
+          )}
+        </div>
 
         <Separator className="my-10" />
 
