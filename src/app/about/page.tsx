@@ -14,10 +14,10 @@ const introText = Array.isArray(about.intro)
 
 export const metadata: Metadata = {
   title: `About | ${siteConfig.name}`,
-  description: introText.slice(0, 160),
+  description: String(introText).slice(0, 160),
   openGraph: {
     title: `About | ${siteConfig.name}`,
-    description: introText.slice(0, 160),
+    description: String(introText).slice(0, 160),
     url: `${siteConfig.url}/about`,
   },
 };
