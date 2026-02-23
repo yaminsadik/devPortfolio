@@ -5,7 +5,7 @@ const { whatIDo } = contentConfig.home;
 
 export function WhatIDo() {
   return (
-    <section className="border-t border-border/60 py-16 md:py-20">
+    <section className="relative z-0 border-t border-border/60 bg-background py-16 md:py-20">
       <div className="mx-auto max-w-5xl px-6">
         <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           {whatIDo.title}
