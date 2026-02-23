@@ -1,7 +1,7 @@
 export const contentConfig = {
   home: {
     hero: {
-      headline: "Full-Stack Web Developer",
+      headline: "Full-Stack Software Engineer",
       subheadline:
       "React, TypeScript and Nest.js focused full-stack developer building apps with real workflows: authentication, dashboards, payments, exports, and clean UI. Recent work: TickerStats (AI equity research SaaS), GapWalk (schedule-aware micro-walk nudges).", 
       primaryCta: "View Projects",

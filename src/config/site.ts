@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Syam",
   fullName: "Sadik Yamin",
-  title: "Sadik Yamin | Software Developer",
+  title: "Sadik Yamin | Software Engineer",
   description:
-    "React + TypeScript focused full-stack engineer building production-style apps with real workflows. Recent work includes an AI equity research SaaS, a schedule-aware fitness app, and a computer vision detection dashboard.",
+    "React, TypeScript and Nest.js focused full-stack developer building apps with real workflows: authentication, dashboards, payments, exports, and clean UI. Recent work: TickerStats (AI equity research SaaS), GapWalk (schedule-aware micro-walk nudges).",
   url: "https://www.sadikyamin.me",
   location: "St. Louis, MO",
   email: "syam46484@gmail.com",
