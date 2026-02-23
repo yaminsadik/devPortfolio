@@ -38,7 +38,7 @@ export const contentConfig = {
     intro: [
       "I am a React and TypeScript focused full-stack engineer, with strong experience building backends in NestJS and FastAPI. Most of my work sits at the intersection of clean UI and heavy data, where reliability matters as much as design.",
       "I built TickerStats, an AI-powered equity research platform that compares tickers, runs valuation models, generates pitch decks with structured outputs, and exports to PPTX, PDF, and Excel. The platform is backed by FastAPI with PostgreSQL, caching, and schema validation to keep outputs consistent. I also built GapWalk, a schedule-aware micro-walking app that finds free gaps, schedules local notifications, and tracks walks with on-device storage.",
-      "Currently, an end-to-end app with a rewards system is being built for the gas station chain 7th Heaven. I enjoy working end to end across frontend architecture and UX polish, APIs and data pipelines, and deployment, using tools like FastAPI and NestJS when a project needs a solid backend.",
+      "Currently developing an end-to-end mobile app with an integrated loyalty rewards system for a Midwest gas station chain. I enjoy working end to end across frontend architecture and UX polish, APIs and data pipelines, and deployment, using tools like FastAPI and NestJS when a project needs a solid backend.",
     ],
     skills: {
       title: "Tools & Technologies",
