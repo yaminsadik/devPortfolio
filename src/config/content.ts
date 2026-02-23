@@ -91,16 +91,6 @@ export const contentConfig = {
     "Maintained consistent communication channels to support long-term alumni relationships."
   ]
 },
-{
-  role: "Full-Stack Developer (Rewards App)",
-  company: "7th Heaven Gas Station Chain",
-  period: "2026 – Present",
-  description: [
-    "Building an end-to-end rewards application with customer-facing flows and operational tooling for a multi-location gas station chain.",
-    "Developing the frontend in React Native + TypeScript and implementing backend services in NestJS and FastAPI based on system requirements.",
-    "Designing APIs and data models to support points accrual, redemption, and user activity tracking."
-  ]
-}
 
       ],
     },
