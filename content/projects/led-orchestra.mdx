@@ -1,0 +1,72 @@
+---
+title: "LED Orchestra"
+slug: "led-orchestra"
+date: "2026-07-23"
+summary: "Offline distributed LED show controller that synchronizes ESP32-C6 strip segments over a Matter-over-Thread mesh."
+tags: ["Embedded Systems", "IoT", "Matter", "Distributed Systems"]
+stack:
+  [
+    "C++",
+    "ESP-IDF",
+    "ESP-Matter",
+    "Matter",
+    "OpenThread",
+    "FreeRTOS",
+    "NVS",
+    "WS2812B",
+  ]
+role: "Embedded Systems Developer"
+outcomes:
+  - "Built ESP32-C6 controller and LED-node firmware for offline control over Matter and Thread"
+  - "Proved synchronized scheduled scenes across two physical nodes within roughly 10 ms"
+  - "Implemented durable node configuration, scene persistence, calibration, group commands, and an append-only effect registry"
+  - "Validated a split architecture with a dedicated controller and S3+H2 Thread Border Router on real hardware"
+  - "Added brick-safe OTA requestor and offline OTA provider foundations for field firmware updates"
+repoUrl: "https://github.com/yaminsadik/led-orchestra"
+liveUrl: ""
+coverImage: "/images/projects/led-orchestra.png"
+---
+
+## Overview
+
+LED Orchestra is an offline, distributed controller for addressable LED installations. Each ESP32-C6 node drives one physical WS2812B strip segment, while all nodes render as one continuous virtual strip over a private Matter-over-Thread mesh.
+
+The system is designed for installations where venue Wi-Fi or internet access may be unreliable. Once a scene reaches the nodes, rendering continues locally even if the controller or border router becomes unavailable.
+
+## How It Works
+
+- A separate ESP32-C6 acts as the Matter controller and commissioner.
+- An ESP32-S3 + ESP32-H2 board provides the OpenThread Border Router and 802.15.4 radio.
+- Thread-only ESP32-C6 LED nodes each own a contiguous range of the global LED index space.
+- Effects use the global LED index and synchronized time, allowing waves, gradients, and reveals to cross physical strip boundaries cleanly.
+- USB serial and a controller-local Wi-Fi access point provide offline operator ingress.
+
+## Architecture
+
+The active implementation is written in C++ with ESP-IDF and ESP-Matter. LED commands travel only through Matter over Thread; Wi-Fi is limited to operator and future control-plane ingress.
+
+The controller commissions nodes, manages the Matter fabric, and sends custom-cluster commands. LED nodes persist their configuration and last valid scene in NVS, render locally, and continue operating through temporary network outages.
+
+<Callout type="info">
+  The selected topology came from hardware validation. An all-in-one controller
+  and border-router design failed its offline gate, so the system uses a
+  dedicated ESP32-C6 controller alongside an S3+H2 border router.
+</Callout>
+
+## Synchronization and Effects
+
+Each node maps its physical LEDs into a shared global index space. The effect engine combines that index with a synchronized clock so separately powered strips behave like one installation.
+
+The firmware includes group scene commands, scheduled activation, per-node calibration, color correction, brightness limits, and an append-only effect registry. A two-node hardware test activated the same scheduled scene on both nodes within roughly 10 ms.
+
+## Reliability
+
+Node configuration and the active scene are versioned, checksummed, and stored in NVS. Nodes keep the last valid state when a command is malformed or connectivity drops. Firmware updates are designed around a Matter OTA requestor/provider path with dual OTA slots and rollback protection.
+
+## Current Status
+
+Controller and LED-node firmware build successfully, the selected topology has been validated on hardware, and multi-node group control and synchronized scenes work on a real bench setup. Scale and soak testing, declarative show-bundle transport, and complete end-to-end OTA validation remain in progress.
+
+## Why This Project Matters
+
+LED Orchestra combines embedded firmware, distributed timing, wireless mesh networking, hardware bring-up, and resilience engineering. The result is a lighting system designed around the operational constraints of a real installation rather than a cloud-dependent demo.
