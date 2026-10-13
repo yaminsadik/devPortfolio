@@ -3,7 +3,7 @@ export const siteConfig = {
   fullName: "Sadik Yamin",
   title: "Sadik Yamin | Software Engineer",
   description:
-    "React, TypeScript and Nest.js focused full-stack developer building apps with real workflows: authentication, dashboards, payments, exports, and clean UI. Recent work: TickerStats (AI equity research SaaS), GapWalk (schedule-aware micro-walk nudges).",
+    "Software developer working across full-stack web, embedded firmware, and self-hosted infrastructure. At Putt Quest I build LED lighting, moving obstacles, and the on-site Kubernetes cluster for a mini-golf course. Founder of TickerStats (AI equity research SaaS).",
   url: "https://www.sadikyamin.me",
   location: "St. Louis, MO",
   email: "syam46484@gmail.com",
@@ -14,11 +14,11 @@ export const siteConfig = {
   },
   resumeUrl: "/resume.pdf",
   featuredProjectSlugs: [
-    "tickerstats",
     "led-orchestra",
+    "fish-jaw-obstacle",
+    "bizaq",
+    "tickerstats",
     "gapwalk",
-    "weatherapp",
-    "sadik-visuals",
   ],
 } as const;
 

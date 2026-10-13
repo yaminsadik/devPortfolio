@@ -126,9 +126,17 @@ export default function AboutPage() {
                   <p className="mt-0.5 text-sm text-muted-foreground">
                     {job.company} &middot; {job.period}
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {job.description}
-                  </p>
+                  <ul className="mt-2 space-y-1.5">
+                    {job.description.map((line) => (
+                      <li
+                        key={line}
+                        className="flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground"
+                      >
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>

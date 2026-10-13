@@ -31,6 +31,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="text-xs text-muted-foreground"
             >
               {new Date(project.date).toLocaleDateString("en-US", {
+                timeZone: "UTC",
                 year: "numeric",
                 month: "short",
               })}
