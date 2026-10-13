@@ -1,0 +1,66 @@
+---
+title: "Fish-Jaw Obstacle"
+slug: "fish-jaw-obstacle"
+date: "2026-10-07"
+summary: "Motorized mini-golf obstacle: a fish whose jaw chomps on a 12 V linear actuator, driven by ESP32-C6 firmware with a Wi-Fi control page and OTA updates."
+tags: ["Embedded Systems", "Mechatronics", "Hardware", "IoT"]
+stack:
+  [
+    "C++",
+    "ESP32-C6",
+    "PlatformIO",
+    "Arduino Core 3",
+    "Cytron MD10C",
+    "Linear Actuator",
+    "Bambu Lab 3D Printing",
+  ]
+role: "Associate Software Developer, Putt Quest"
+outcomes:
+  - "Designed the mechanism end to end: a fixed ball path through the fish, with the jaw moving clear of it"
+  - "3D-printed the parts on a Bambu Lab printer and drove the jaw with a 12 V linear actuator through a magnetic breakaway coupling"
+  - "Wrote ESP32-C6 firmware with a Wi-Fi control page, browser and PlatformIO OTA updates, fault states, and run-time tracking"
+  - "Kept the motion logic hardware-independent and covered it with 44 host unit tests against a simulated actuator"
+  - "Shipped four firmware versions in under a week, retiming moves around measured stroke times and adding plug-and-play startup"
+coverImage: "/images/projects/fish-jaw-obstacle.jpg"
+---
+
+## Overview
+
+Customers at Putt Quest's Ocean Odyssey course had asked for moving obstacles, so I was assigned to design one. The result is a funny ocean fish: the player putts into its mouth, the ball runs through a fixed tube inside the fish and comes back out, and the jaw chomps open and closed for the show.
+
+I owned the whole build, from the mechanism and parts selection through 3D printing, wiring, and firmware.
+
+## Mechanism
+
+The key design decision was to keep the ball path and the motion separate. The ball travels through a fixed PVC tube, and the jaw moves in empty space beside it. If the motor ever stops, the hole still plays.
+
+- A hinged jaw is driven by a 12 V linear actuator with a 4 inch stroke.
+- The actuator connects to the jaw through a magnetic breakaway coupling, so a hard push down on the jaw separates the coupling instead of loading the actuator.
+- The fish's parts were 3D-printed on a Bambu Lab printer.
+
+I measured the delivered actuator before finalizing the geometry, because its real dimensions and speed set the jaw's travel and timing.
+
+## Electronics
+
+An ESP32-C6 drives a Cytron MD10C motor driver, which runs the actuator in both directions. The firmware drives the motor's PWM line low before anything else at boot, so the jaw stays still until it is told to move. It also supports an optional INA226 current sensor for end-of-travel and obstruction detection, and the same code builds for an ESP32-S3 as a spare board.
+
+## Firmware
+
+The firmware is C++ on the Arduino core, built with PlatformIO. The motion logic lives in a library with no hardware dependencies, so it runs on a laptop against a simulated actuator. That library has 44 host unit tests.
+
+- **Show cycle:** soft start, open, hold, close, with separate speeds, opening distance, and hold time.
+- **Auto-loop:** repeats the show by itself after power-up, following a 3-second countdown, so staff only have to plug it in.
+- **Web control:** the fish runs its own Wi-Fi network with a staff login page showing state, position, cycle count, and run time. Jogging is hold-to-run: if the phone stops sending for about 300 ms, the motor stops.
+- **Wireless updates:** new firmware installs from the browser or from PlatformIO over the air. The motor is locked off during every update.
+- **Faults:** with the current sensor fitted, obstacles, timeouts, and sensor dropouts latch a fault until someone resets it.
+- **Run-time tracking:** total motor time and chomp count are saved across reboots, which gives the project its own lifetime data for the actuator.
+
+## Iteration
+
+The first version assumed a 6-second stroke. Once the actuator was on the bench, I timed a full close at about 4.95 seconds, so the jaw was sitting still for almost 3 seconds of every move. Version 0.2.0 retimed the moves around the measurement and added tuning tools. Within a week of the first flash, version 0.4.0 started the show automatically on power-up, with no phone or settings needed.
+
+<Callout type="info">
+  Firmware stops are a convenience and a test tool, not a safety-rated control.
+  Keeping the ball path separate from the jaw means a motor failure never
+  blocks play.
+</Callout>

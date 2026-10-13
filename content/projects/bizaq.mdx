@@ -1,0 +1,84 @@
+---
+title: "BizAQ"
+slug: "bizaq"
+date: "2026-10-11"
+summary: "AI-assisted search, research, and analysis for finding a small business to buy: from 373 listings across six states down to one-page briefs on the few worth a visit."
+tags: ["AI Agents", "Research", "Data Engineering", "Python"]
+stack:
+  [
+    "Python",
+    "LLM Agents",
+    "Census ACS & CBP",
+    "OpenStreetMap",
+    "Public Records",
+    "HTML Reports",
+  ]
+role: "Creator"
+outcomes:
+  - "Searched business marketplaces, brokers, and public records across six states, capturing 373 listings and 19 off-market leads"
+  - "Advanced 6 businesses to full analysis, including site visits and seller negotiations"
+  - "Researched each market with demographics, traffic counts, nearby competitors, gaming revenue, and license and ownership records"
+  - "Placed every store on a market-attractiveness vs. competitive-position grid, each linked to a one-page brief"
+  - "Built guardrails for AI-written analysis, backed by 310 tests: claims must cite dated evidence and cannot be more confident than that evidence allows"
+coverImage: "/images/projects/bizaq.jpg"
+---
+
+## Overview
+
+I built BizAQ to support my own search for a small business to acquire, starting with gas stations and convenience stores. It covers the whole funnel: finding businesses for sale, researching each one's market, and analyzing whether a deal makes sense.
+
+AI agents do most of the searching and research. I make every decision and handle every conversation with sellers.
+
+## Search
+
+- **On-market:** agents sweep a fixed list of business marketplaces and brokers, including BizBuySell, BizQuest, LoopNet, and regional brokers, across six states. So far that has captured 373 listings.
+- **Off-market:** town-by-town store lists built from public data, plus state liquor-license records grouped into owners who run several locations. That produced 19 off-market leads.
+- **Coverage checks:** I give the agents listings I already know about, and each sweep reports whether it found them. A miss means the search is incomplete, and the report says so.
+
+## Research
+
+For each business worth a closer look, the research covers:
+
+- **Demographics** from the Census American Community Survey, plus business counts from County Business Patterns.
+- **Traffic counts** from the state transportation department.
+- **Nearby competitors** from OpenStreetMap, checked during site visits.
+- **Gaming revenue** from state gaming board reports, for stores with video gaming terminals.
+- **License and ownership records**, including who holds the liquor license and who owns the land.
+
+Every fact carries its source and the date it was retrieved. Public data is saved as checksum-verified snapshots, so any report can be traced back to exactly what it used.
+
+## Analysis
+
+Each business gets a market assessment across 13 factors, placed on two separate axes:
+
+- **Market attractiveness:** demand, trends, nearby trip generators, road access, and alternatives.
+- **Competitive position:** visibility and access, reliability, offer, hours, and prices, competitors, and current customer patterns.
+
+The grid above places every researched store on those two axes, with a confidence level for each placement. Each store links to a one-page brief that answers five questions in order: Can I afford it? Is it legal? What big costs are coming? How is the market? What's next?
+
+Behind the brief, unit-economics tools calculate monthly profit and loss, break-even, cash needed to open, and payback time.
+
+<Callout type="info">
+  The grid is deliberately not a ranking. There is no overall score or
+  automatic winner; it shows where the evidence is strong or thin so I can
+  decide what to check next.
+</Callout>
+
+## Guardrails for AI-Written Analysis
+
+AI agents are good at gathering information and bad at knowing what they don't know. BizAQ treats every agent-written assessment as untrusted input:
+
+- Each claim must cite evidence, and assessments must also list contrary evidence and missing facts.
+- The validator works out the highest confidence the cited evidence supports, and rejects any assessment that claims more.
+- Published assessments are immutable snapshots. A changed assessment gets a new ID instead of overwriting history.
+- Invalid input never replaces the last good report, and file paths are checked before anything is written.
+
+The Python pipeline behind all of this has 310 tests.
+
+## Human in Control
+
+BizAQ has no email, phone, or messaging integration. Agents can research public sources and prepare drafts, but only I contact sellers, brokers, or owners. My decisions live in separate files that agents can read but never change.
+
+## What's Next
+
+I'm splitting the pipeline into an orchestrator and sub-agents for search, research, and analysis. Each sub-agent will write to the same validated contracts, so every handoff is checked before the next stage runs.

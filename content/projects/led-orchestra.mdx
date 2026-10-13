@@ -14,14 +14,17 @@ stack:
     "FreeRTOS",
     "NVS",
     "WS2812B",
+    "ESPHome",
+    "MQTT",
   ]
-role: "Embedded Systems Developer"
+role: "Associate Software Developer, Putt Quest"
 outcomes:
   - "Built ESP32-C6 controller and LED-node firmware for offline control over Matter and Thread"
   - "Proved synchronized scheduled scenes across two physical nodes within roughly 10 ms"
   - "Implemented durable node configuration, scene persistence, calibration, group commands, and an append-only effect registry"
   - "Validated a split architecture with a dedicated controller and S3+H2 Thread Border Router on real hardware"
   - "Added brick-safe OTA requestor and offline OTA provider foundations for field firmware updates"
+  - "Ported the effect engine into the production ESPHome/MQTT firmware and installed 6,400+ WS2815 LEDs across 11 holes"
 repoUrl: "https://github.com/yaminsadik/led-orchestra"
 liveUrl: ""
 coverImage: "/images/projects/led-orchestra.png"
@@ -29,7 +32,7 @@ coverImage: "/images/projects/led-orchestra.png"
 
 ## Overview
 
-LED Orchestra is an offline, distributed controller for addressable LED installations. Each ESP32-C6 node drives one physical WS2812B strip segment, while all nodes render as one continuous virtual strip over a private Matter-over-Thread mesh.
+LED Orchestra is an offline, distributed controller for addressable LED installations. I built it at Putt Quest for the Ocean Odyssey mini-golf course, starting in May 2026. Each ESP32-C6 node drives one physical WS2812B strip segment, while all nodes render as one continuous virtual strip over a private Matter-over-Thread mesh.
 
 The system is designed for installations where venue Wi-Fi or internet access may be unreliable. Once a scene reaches the nodes, rendering continues locally even if the controller or border router becomes unavailable.
 
@@ -66,6 +69,12 @@ Node configuration and the active scene are versioned, checksummed, and stored i
 ## Current Status
 
 Controller and LED-node firmware build successfully, the selected topology has been validated on hardware, and multi-node group control and synchronized scenes work on a real bench setup. Scale and soak testing, declarative show-bundle transport, and complete end-to-end OTA validation remain in progress.
+
+## From Prototype to the Course
+
+The course's production lighting runs on ESP32-S3 boards with ESPHome firmware and MQTT control. I ported LED Orchestra's effect engine into that firmware as a shared C++ header, so its effects and palettes run on the course hardware.
+
+On the physical side, I wired, soldered, powered, and installed more than 6,400 WS2815 LEDs (over 700 ft of strip) across 11 holes. That work covered power distribution and long power and data runs, which are documented in the repo's LED strip power bring-up notes.
 
 ## Why This Project Matters
 
