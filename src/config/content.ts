@@ -37,7 +37,7 @@ export const contentConfig = {
     title: "About Me",
     intro: [
       "I am an Associate Software Developer at Putt Quest, a mini-golf business, where my work spans firmware, hardware, infrastructure, and web. I graduated from Truman State University with a B.S. in Computer Science in May 2026.",
-      "At Putt Quest I designed LED Orchestra, an offline lighting controller where ESP32-C6 nodes render one synchronized LED strip over a Matter-over-Thread mesh. I then ported its effect engine into the production firmware and wired, soldered, and installed more than 6,400 LEDs across 11 holes. I also designed and built a motorized fish-jaw obstacle, from the mechanism and 3D-printed parts to its ESP32-C6 firmware. I assembled and provisioned the course's Raspberry Pi Kubernetes cluster, and I build scheduling features for the employee portal.",
+      "At Putt Quest I designed LED Orchestra, an offline lighting controller where ESP32-C6 nodes render one synchronized LED strip over a Matter-over-Thread mesh. I then ported its effect engine into the production firmware and wired, soldered, and installed more than 6,400 LEDs across 18 holes. I also designed and built a motorized fish-jaw obstacle, from the mechanism and 3D-printed parts to its ESP32-C6 firmware. I assembled and provisioned the course's Raspberry Pi Kubernetes cluster, and I build scheduling features for the employee portal.",
       "Before that, I founded TickerStats, an AI-powered equity research platform that compares tickers, runs DCF valuation, generates pitch decks from schema-validated LLM output, and exports to PPTX, PDF, and Excel. I also built the backend for GapWalk, a published Android app that finds free gaps in your calendar and nudges you toward short walks. Most recently I built BizAQ, an AI-assisted pipeline that searches, researches, and analyzes small businesses for sale.",
     ],
     skills: {
@@ -76,7 +76,7 @@ export const contentConfig = {
   period: "May 2026 – Present",
   description: [
     "Designed and built LED Orchestra, an offline LED show controller in C++ (ESP-IDF, ESP-Matter) where ESP32-C6 nodes render one synchronized virtual strip over a Matter-over-Thread mesh, with OTA firmware updates.",
-    "Ported its effect engine into the production ESPHome/MQTT lighting firmware, and wired, soldered, powered, and installed 6,400+ WS2815 LEDs (700+ ft) across 11 holes on ESP32-S3 controllers.",
+    "Ported its effect engine into the production ESPHome/MQTT lighting firmware, and wired, soldered, powered, and installed 6,400+ WS2815 LEDs (700+ ft) across 18 holes on ESP32-S3 controllers.",
     "Designed and built a motorized fish-jaw obstacle: a hinged jaw driven by a 12 V linear actuator, 3D-printed parts, and ESP32-C6 firmware with a Wi-Fi control page, OTA updates, fault states, and 44 unit tests.",
     "Assembled and provisioned the course's 3-node high-availability k3s cluster on Raspberry Pi 5s, now running in production, using Ansible playbooks for Longhorn storage, cert-manager, ArgoCD, Cloudflare Tunnel, and Kanidm identity.",
     "Built employee-portal scheduling features in SvelteKit and PostgreSQL: transactional schedule saves, per-location permissions, DST-safe shift reminders, and staff directory sync."
@@ -141,7 +141,7 @@ export const contentConfig = {
     resumeHighlights: {
       title: "Resume Highlights",
       items: [
-      "Associate Software Developer at Putt Quest: built the course's LED lighting (6,400+ LEDs across 11 holes) and a motorized fish-jaw obstacle end to end, from hardware and installation to C++ firmware on ESP32 boards.",
+      "Associate Software Developer at Putt Quest: built the course's LED lighting (6,400+ LEDs across 18 holes) and a motorized fish-jaw obstacle end to end, from hardware and installation to C++ firmware on ESP32 boards.",
 "Assembled and provisioned a 3-node high-availability k3s cluster on Raspberry Pi 5s with Ansible, now running in production.",
 "Founder of TickerStats, an AI-powered equity research SaaS that compares up to 100 tickers, runs DCF valuation, generates pitch decks with structured LLM outputs, and exports to PPTX/PDF/XLSX/CSV.",
 "Implemented core SaaS infrastructure: Auth0 authentication, Stripe subscriptions, tier enforcement via JWT claims, and per-user usage tracking in PostgreSQL.",

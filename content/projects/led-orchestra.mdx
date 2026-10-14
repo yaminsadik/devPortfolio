@@ -24,7 +24,7 @@ outcomes:
   - "Implemented durable node configuration, scene persistence, calibration, group commands, and an append-only effect registry"
   - "Validated a split architecture with a dedicated controller and S3+H2 Thread Border Router on real hardware"
   - "Added brick-safe OTA requestor and offline OTA provider foundations for field firmware updates"
-  - "Ported the effect engine into the production ESPHome/MQTT firmware and installed 6,400+ WS2815 LEDs across 11 holes"
+  - "Ported the effect engine into the production ESPHome/MQTT firmware and installed 6,400+ WS2815 LEDs across 18 holes"
 repoUrl: "https://github.com/yaminsadik/led-orchestra"
 liveUrl: ""
 coverImage: "/images/projects/led-orchestra.png"
@@ -74,7 +74,7 @@ Controller and LED-node firmware build successfully, the selected topology has b
 
 The course's production lighting runs on ESP32-S3 boards with ESPHome firmware and MQTT control. I ported LED Orchestra's effect engine into that firmware as a shared C++ header, so its effects and palettes run on the course hardware.
 
-On the physical side, I wired, soldered, powered, and installed more than 6,400 WS2815 LEDs (over 700 ft of strip) across 11 holes. That work covered power distribution and long power and data runs, which are documented in the repo's LED strip power bring-up notes.
+On the physical side, I wired, soldered, powered, and installed more than 6,400 WS2815 LEDs (over 700 ft of strip) across 18 holes. That work covered power distribution and long power and data runs, which are documented in the repo's LED strip power bring-up notes.
 
 ## Why This Project Matters
 
