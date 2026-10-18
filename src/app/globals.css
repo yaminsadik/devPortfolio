@@ -48,6 +48,8 @@
 }
 
 :root {
+  --z-backdrop: 500;
+  --z-dialog: 600;
   --radius: 0.625rem;
   --background: oklch(0.99 0 0);
   --foreground: oklch(0.145 0 0);
