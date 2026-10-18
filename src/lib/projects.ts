@@ -4,6 +4,12 @@ import matter from "gray-matter";
 
 const PROJECTS_DIR = path.join(process.cwd(), "content", "projects");
 
+export interface ProjectPhoto {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
 export interface Project {
   title: string;
   slug: string;
@@ -18,6 +24,8 @@ export interface Project {
   liveUrl?: string;
   coverImage: string;
   coverImageFit?: "cover" | "contain";
+  gallery?: ProjectPhoto[];
+  galleryDescription?: string;
   ogImage?: string;
 }
 
