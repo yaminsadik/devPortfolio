@@ -18,6 +18,7 @@ export const siteConfig = {
     "fish-jaw-obstacle",
     "putt-quest-infrastructure",
     "bizaq",
+    "car-scraper",
     "tickerstats",
     "gapwalk",
   ],

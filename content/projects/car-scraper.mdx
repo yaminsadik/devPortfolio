@@ -1,0 +1,70 @@
+---
+title: "Car Scraper / Evidence Desk"
+slug: "car-scraper"
+date: "2026-08-21"
+summary: "Used-car research workflow with Chrome DevTools capture, playbook-based AI triage, and a React dashboard for explainable scores, price history, and comparisons."
+tags: ["Web Scraping", "Automation", "Data Pipelines", "React"]
+stack:
+  [
+    "Node.js",
+    "JavaScript",
+    "Chrome DevTools Protocol",
+    "WebSocket",
+    "React",
+    "Vite",
+    "CSV",
+    "Markdown",
+  ]
+role: "Creator & Full-Stack Developer"
+outcomes:
+  - "Built a local Chrome DevTools tool that pins a Marketplace search tab and captures loaded listing cards and detail pages"
+  - "Merged repeat captures into a deduplicated CSV index with first-seen dates, search ranks, appearance counts, and price history"
+  - "Built Evidence Desk with explainable score breakdowns, shareable filters, and side-by-side comparisons for up to three cars"
+  - "Added per-listing deal records, VIN check-digit validation, and readiness checks read from the buying playbook"
+  - "Published a synthetic demo and a snapshot scan that blocks contact details, VINs, and private notes from the browser data"
+repoUrl: "https://github.com/yaminsadik/car-scraper"
+coverImage: "/images/projects/car-scraper.jpg"
+---
+
+## Overview
+
+Car Scraper is a human-in-the-loop workflow for finding and evaluating used cars on Facebook Marketplace. I built the capture tools, review workflow, and Evidence Desk frontend to turn repeated searches into a shortlist with a record of why each car was kept, rejected, or still needed information.
+
+The system combines local Node.js tooling with AI-assisted review against a written buying playbook. Browsing, seller contact, vehicle inspection, and purchase decisions stay with the buyer.
+
+## Capture and History
+
+A small command-line tool connects to a signed-in Chrome session through the Chrome DevTools Protocol over WebSocket. The buyer loads and scrolls a Marketplace search; the tool reads the rendered cards from a pinned tab. Listing details can then be captured in batches for deeper review.
+
+Pinning the exact browser target makes captures repeatable when several Marketplace tabs are open. If the target is lost and multiple search tabs are available, the tool asks for an explicit selection.
+
+Search captures are stored as JSON and merged chronologically into a CSV index keyed by listing ID. Repeated appearances update the same record while preserving first-seen and last-seen dates, best search rank, capture count, and observed price changes. The merge also re-parses saved card text so parser improvements can recover older captures.
+
+## Review and Deal Tracking
+
+The buying playbook owns the criteria for triage, scoring, and pre-visit checks. A Markdown tracker holds curated decisions and evaluation status separately from the mechanical listing index.
+
+Once a listing advances to a seller conversation, it gets a small deal file with its stage, evidence, next action, and appointment information. A generated index summarizes those files. VIN check-digit validation and playbook-driven readiness checks help expose missing information before a visit.
+
+The workflow keeps incomplete evidence visible. A recorded seller claim, an unverified price, and a completed check remain distinct states throughout review.
+
+## Evidence Desk
+
+Evidence Desk is the React and Vite interface for reviewing the saved snapshot. It combines saved views, a sortable listing table, and an evidence inspector.
+
+- Filter by brand, price, year, distance band, title status, and evaluation status, with filter and selection state stored in the URL.
+- Inspect the score ledger, tier caps, missing information, and recorded price changes for a selected car.
+- Compare up to three cars side by side, with the comparison selection saved locally.
+- Keep exploratory German-brand results in a separate collection with their own review context.
+
+The frontend loads a core JSON payload for the main review views and fetches the remaining listings when needed. It displays a dated snapshot; refreshed captures and evaluations reach the interface after the data is rebuilt.
+
+## Public Demo and Data Boundaries
+
+The public repository includes synthetic inputs so the capture-to-dashboard data pipeline can be demonstrated without a Marketplace account. The thumbnail shows that synthetic demo.
+
+The snapshot builder removes seller contact information, VIN values, raw descriptions, and private notes. A scan runs during the web build and fails if prohibited data remains. Real captures, conversations, and working deal records stay outside the public repository.
+
+## What I Learned
+
+Scrape volume and a useful buying shortlist measure different things. The project made capture history and review decisions inspectable, while real use exposed further work around discovery coverage, seller verification, and confirmed appointments. Those improvements are recorded as follow-up work in the repository.
