@@ -16,6 +16,7 @@ export const siteConfig = {
   featuredProjectSlugs: [
     "led-orchestra",
     "fish-jaw-obstacle",
+    "putt-quest-infrastructure",
     "bizaq",
     "tickerstats",
     "gapwalk",

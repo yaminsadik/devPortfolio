@@ -135,14 +135,10 @@ export default async function ProjectPage({ params }: PageProps) {
                 </Button>
               )}
               {meta.privateRepo && (
-                <Button asChild variant="outline" size="sm">
-                  <a
-                    href={`mailto:${siteConfig.email}?subject=Viewing source for ${meta.title}`}
-                  >
-                    <Lock className="mr-2 h-4 w-4" />
-                    Private Repo — Contact to View Source
-                  </a>
-                </Button>
+                <span className="inline-flex h-8 items-center gap-2 rounded-md border border-border/60 px-3 text-sm text-muted-foreground">
+                  <Lock className="h-4 w-4" aria-hidden="true" />
+                  Private repository
+                </span>
               )}
               {meta.liveUrl && (
                 <Button asChild variant="outline" size="sm">

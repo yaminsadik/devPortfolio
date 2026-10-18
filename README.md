@@ -133,7 +133,7 @@ role: "Lead Developer"
 coverImage: "/images/projects/my-project.png"
 coverImageFit: "cover"        # "cover" (default) or "contain" for wide/tall images
 repoUrl: "https://github.com/yourhandle/my-project"
-# privateRepo: true           # use instead of repoUrl for private repositories
+# privateRepo: true           # shows a private-repository label instead of a source link
 liveUrl: "https://my-project.dev"
 outcomes:
   - "Reduced load time by 40%"
@@ -160,7 +160,7 @@ Write your project content here using Markdown...
 | `coverImage` | Yes | Path under `public/` |
 | `coverImageFit` | No | `"cover"` (default) or `"contain"` |
 | `repoUrl` | No | Public GitHub/repo URL |
-| `privateRepo` | No | Set `true` to show "Contact to View Source" instead of a repo link |
+| `privateRepo` | No | Set `true` to show a non-interactive "Private repository" label instead of a repo link |
 | `liveUrl` | No | Live demo URL |
 
 3. Add a cover image to `public/images/projects/`.

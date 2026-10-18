@@ -1,0 +1,76 @@
+---
+title: "Putt Quest Kubernetes Cluster"
+slug: "putt-quest-infrastructure"
+date: "2026-08-27"
+summary: "Production, self-hosted Kubernetes on three Raspberry Pi 5s, with NVMe storage, Ansible provisioning, and ArgoCD GitOps for Putt Quest's website and employee portal."
+tags: ["Kubernetes", "Infrastructure", "GitOps", "Self-Hosted"]
+stack:
+  [
+    "Raspberry Pi 5",
+    "Ubuntu Server",
+    "Kubernetes (k3s)",
+    "Ansible",
+    "cloud-init",
+    "Longhorn",
+    "ArgoCD",
+    "GitHub Actions",
+    "Cloudflare Tunnel",
+    "cert-manager",
+    "Kanidm",
+    "PostgreSQL",
+  ]
+role: "Associate Software Developer, Putt Quest"
+outcomes:
+  - "Assembled three Raspberry Pi 5 nodes and flashed their NVMe boot drives for the production cluster"
+  - "Provisioned a three-node high-availability k3s control plane using Ansible and per-node cloud-init configuration"
+  - "Ran provisioning playbooks for Longhorn storage, cert-manager, ArgoCD GitOps, Cloudflare Tunnel, and Kanidm identity"
+  - "Brought up the on-site infrastructure supporting Putt Quest's public website and employee operations portal"
+privateRepo: true
+coverImage: "/images/projects/putt-quest-infrastructure.jpg"
+---
+
+## Overview
+
+Putt Quest's website and employee operations portal run on a self-hosted Kubernetes platform built around three Raspberry Pi 5s. I assembled the nodes, flashed their NVMe boot drives, and provisioned the cluster with Ansible. The cluster is running in production.
+
+This project covers my infrastructure work at Putt Quest: taking the physical hardware through first boot, cluster setup, and deployment of the shared services the applications depend on.
+
+## From Hardware to Kubernetes
+
+Each node combines a Raspberry Pi 5 with NVMe storage and a PoE HAT. Ubuntu Server runs on ARM64, with per-node cloud-init configuration handling first-boot setup and Kubernetes prerequisites.
+
+The Ansible playbook checks that initial setup, applies host hardening, and provisions k3s. All three Pi nodes participate in the control plane, with embedded etcd and a virtual IP for the Kubernetes API. Longhorn provides replicated persistent storage across the NVMe drives.
+
+## How the Applications Connect
+
+The infrastructure supports the SvelteKit public website and employee portal. Public requests pass through Cloudflare and an outbound Cloudflare Tunnel into the cluster, where Traefik routes them to the application. The tunnel provides public access without opening inbound ports on the site's router.
+
+The employee application connects to two shared services:
+
+- **Kanidm** supplies employee sign-in through OpenID Connect, integrated with Auth.js in the web application.
+- **PostgreSQL**, managed by CloudNativePG, stores the business data used by the portal.
+
+That is where this infrastructure work connects to my application work: the scheduling features I built in SvelteKit and PostgreSQL run on this platform. The portal includes transactional schedule saves, per-location permission checks, shift reminders that handle daylight-saving transitions, and employee directory synchronization.
+
+## Provisioning and GitOps
+
+The deployment setup separates machine provisioning from application releases. Ansible brings up the nodes and platform services; ArgoCD reconciles the application's Kubernetes manifests from Git.
+
+The application release path is:
+
+1. A change reaches the web repository's main branch.
+2. GitHub Actions builds an ARM64 Docker image and publishes it to GitHub Container Registry.
+3. The workflow updates the image tag in the application's deployment manifest.
+4. ArgoCD detects the manifest change and deploys the workload to k3s.
+
+The provisioning playbooks also install Longhorn, cert-manager, Kanidm, and the Cloudflare Tunnel components. Together, these provide persistent storage, certificate management, identity, and public routing for the application environment.
+
+## Reliability and Operations
+
+The three-node control plane provides Kubernetes control-plane redundancy. Workload availability also depends on each application's deployment and storage configuration: the checked-in web deployment uses one replica, and the PostgreSQL configuration uses a single database instance.
+
+The platform configuration includes recurring Longhorn snapshots and backups to MinIO, plus VictoriaMetrics and Grafana monitoring.
+
+## Related Putt Quest Work
+
+This project adds the infrastructure side to my work on [LED Orchestra](/projects/led-orchestra) and the [motorized fish-jaw obstacle](/projects/fish-jaw-obstacle). Across those projects, my role spans physical hardware, embedded firmware, on-site infrastructure, and the employee-facing web application.
