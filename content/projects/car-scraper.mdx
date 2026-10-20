@@ -1,5 +1,5 @@
 ---
-title: "Car Scraper / Evidence Desk"
+title: "Car Hunt"
 slug: "car-scraper"
 date: "2026-08-21"
 summary: "Used-car research workflow with Chrome DevTools capture, playbook-based AI triage, and a React dashboard for explainable scores, price history, and comparisons."
@@ -19,7 +19,7 @@ role: "Creator & Full-Stack Developer"
 outcomes:
   - "Built a local Chrome DevTools tool that pins a Marketplace search tab and captures loaded listing cards and detail pages"
   - "Merged repeat captures into a deduplicated CSV index with first-seen dates, search ranks, appearance counts, and price history"
-  - "Built Evidence Desk with explainable score breakdowns, shareable filters, and side-by-side comparisons for up to three cars"
+  - "Built a React dashboard with explainable score breakdowns, shareable filters, and side-by-side comparisons for up to three cars"
   - "Added per-listing deal records, VIN check-digit validation, and readiness checks read from the buying playbook"
   - "Published a synthetic demo and a snapshot scan that blocks contact details, VINs, and private notes from the browser data"
 repoUrl: "https://github.com/yaminsadik/car-scraper"
@@ -28,7 +28,7 @@ coverImage: "/images/projects/car-scraper.jpg"
 
 ## Overview
 
-Car Scraper is a human-in-the-loop workflow for finding and evaluating used cars on Facebook Marketplace. I built the capture tools, review workflow, and Evidence Desk frontend to turn repeated searches into a shortlist with a record of why each car was kept, rejected, or still needed information.
+Car Hunt is a human-in-the-loop workflow for finding and evaluating used cars on Facebook Marketplace. I built the capture tools, review workflow, and React frontend to turn repeated searches into a shortlist with a record of why each car was kept, rejected, or still needed information.
 
 The system combines local Node.js tooling with AI-assisted review against a written buying playbook. Browsing, seller contact, vehicle inspection, and purchase decisions stay with the buyer.
 
@@ -48,9 +48,9 @@ Once a listing advances to a seller conversation, it gets a small deal file with
 
 The workflow keeps incomplete evidence visible. A recorded seller claim, an unverified price, and a completed check remain distinct states throughout review.
 
-## Evidence Desk
+## Dashboard
 
-Evidence Desk is the React and Vite interface for reviewing the saved snapshot. It combines saved views, a sortable listing table, and an evidence inspector.
+The React and Vite dashboard is the interface for reviewing the saved snapshot. It combines saved views, a sortable listing table, and an evidence inspector.
 
 - Filter by brand, price, year, distance band, title status, and evaluation status, with filter and selection state stored in the URL.
 - Inspect the score ledger, tier caps, missing information, and recorded price changes for a selected car.
